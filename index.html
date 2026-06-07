@@ -1,272 +1,687 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iris Doulou Fine Art | Atelier</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iris Doulou — Atelier · Original Paintings by Inquiry</title>
+<meta name="description" content="Original paintings by Iris Doulou: &quot;The Ocean,&quot; a textured blue-and-white abstract seascape, and &quot;Nature's Whisper,&quot; a red mixed-media canvas (2024). Two one-of-a-kind works, available to collectors by private inquiry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --tint:#fafafa;
+    --ink:#1a1a1a;        /* primary text on paper/tint */
+    --ink-soft:#55524d;   /* secondary text — AA on white & #fafafa */
+    --token:#736e68;      /* bracketed [TOKENS] — AA on white (5.05:1) & #fafafa tint (4.84:1) */
+    --rule:#d9d6d0;       /* hairline rules (non-text) */
+    --rule-strong:#1a1a1a;
+    --measure:66ch;
+    --sans:"Archivo", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    --prose:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
 
-    <meta name="description" content="Iris Doulou Atelier — original contemporary fine art by painter Iris Doulou. Texture, light, and form in unique, collectible paintings. Private viewings by inquiry.">
-    <link rel="canonical" href="https://irisdoulouatelier.com/">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231e293b'/><text x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23fffaf5' text-anchor='middle'>I</text></svg>">
+  *,*::before,*::after{box-sizing:border-box}
 
-    <!-- Open Graph / social link previews -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Iris Doulou Fine Art | Atelier">
-    <meta property="og:description" content="Original contemporary fine art by painter Iris Doulou. Private viewings by inquiry.">
-    <meta property="og:url" content="https://irisdoulouatelier.com/">
-    <meta property="og:image" content="https://irisdoulouatelier.com/images/main-blue.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Iris Doulou Fine Art | Atelier">
-    <meta name="twitter:description" content="Original contemporary fine art by painter Iris Doulou. Private viewings by inquiry.">
-    <meta name="twitter:image" content="https://irisdoulouatelier.com/images/main-blue.jpg">
+  html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+    scroll-padding-top:5.5rem;
+  }
 
-    <style>
-        :root {
-            --navy: #1e293b;
-            --ivory: #fffaf5;
-            --text: #475569;
-        }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--prose);
+    font-size:clamp(1rem,0.96rem + 0.2vw,1.0625rem);
+    line-height:1.65;
+    font-feature-settings:"kern" 1, "liga" 1;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
 
-        body {
-            font-family: 'Georgia', serif;
-            background-color: var(--ivory);
-            color: var(--text);
-            margin: 0;
-            line-height: 1.6;
-        }
+  /* ---- layout shell: asymmetric, left-aligned ---- */
+  .wrap{
+    width:100%;
+    max-width:1280px;
+    margin-inline:auto;
+    padding-inline:clamp(1.25rem,5vw,4.5rem);
+  }
 
-        /* HEADER & LOGO */
-        header {
-            padding: 40px 20px;
-            text-align: center;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-        }
+  /* ---- skip link ---- */
+  .skip{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:var(--ink);
+    color:#fff;
+    padding:.7rem 1.1rem;
+    z-index:100;
+    font-family:var(--sans);
+    font-size:.8rem;
+    letter-spacing:.06em;
+    text-decoration:none;
+  }
+  .skip:focus{left:1rem;top:1rem}
 
-        .logo {
-            max-width: 300px;
-            height: auto;
-        }
+  /* ---- focus visibility ---- */
+  a:focus-visible,
+  button:focus-visible{
+    outline:2px solid var(--ink);
+    outline-offset:3px;
+    border-radius:1px;
+  }
 
-        nav {
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 14px;
-        }
+  /* =========================================================
+     HEADER / NAV
+     ========================================================= */
+  .site-head{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:saturate(140%) blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .site-head__inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1.5rem;
+    min-height:4.75rem;
+  }
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap:.85rem;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .brand__name{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:1.0625rem;
+    letter-spacing:.01em;
+  }
+  .brand__sub{
+    font-family:var(--sans);
+    font-weight:500;
+    font-size:.62rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  @media (max-width:560px){ .brand__sub{display:none} }
 
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: var(--navy);
-            font-weight: bold;
-        }
+  .nav{
+    display:flex;
+    align-items:center;
+    gap:clamp(1rem,2.4vw,2.25rem);
+    font-family:var(--sans);
+  }
+  .nav a{
+    color:var(--ink);
+    text-decoration:none;
+    font-size:.72rem;
+    font-weight:500;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    padding:.35rem 0;
+    position:relative;
+  }
+  .nav a::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:-2px;
+    height:1px;
+    background:var(--ink);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .28s ease;
+  }
+  .nav a:hover::after,
+  .nav a:focus-visible::after{transform:scaleX(1)}
+  .nav a.nav--cta{
+    border:1px solid var(--ink);
+    padding:.5rem .9rem;
+  }
+  .nav a.nav--cta::after{display:none}
+  .nav a.nav--cta:hover,
+  .nav a.nav--cta:focus-visible{
+    background:var(--ink);
+    color:#fff;
+  }
+  @media (max-width:430px){
+    .nav{gap:.9rem}
+    .nav a:not(.nav--cta){display:none}
+  }
 
-        nav a:hover,
-        nav a:focus-visible {
-            color: #0f172a;
-            text-decoration: underline;
-        }
+  /* =========================================================
+     HERO
+     ========================================================= */
+  .hero{
+    padding-top:clamp(3.5rem,9vw,7rem);
+    padding-bottom:clamp(2.5rem,6vw,4.5rem);
+    border-bottom:1px solid var(--rule);
+  }
+  .hero__kicker{
+    font-family:var(--sans);
+    font-size:.68rem;
+    font-weight:500;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 1.4rem;
+  }
+  h1{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(3rem,11vw,8.5rem);
+    line-height:.92;
+    letter-spacing:-.02em;
+    margin:0;
+    max-width:14ch;
+  }
+  .hero__sub{
+    font-size:clamp(1.0625rem,1rem + 0.5vw,1.375rem);
+    line-height:1.55;
+    color:var(--ink);
+    max-width:46ch;
+    margin:clamp(1.6rem,4vw,2.4rem) 0 0;
+    font-weight:400;
+  }
+  .hero__meta{
+    margin-top:clamp(2rem,5vw,3rem);
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem 2.5rem;
+    font-family:var(--sans);
+    font-size:.68rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .hero__meta span{display:inline-flex;gap:.6rem;align-items:center}
+  .hero__meta span::before{
+    content:"";
+    width:1.6rem;height:1px;background:var(--rule-strong);display:inline-block;
+  }
 
-        nav a:focus-visible {
-            outline: 2px solid var(--navy);
-            outline-offset: 4px;
-        }
+  /* =========================================================
+     CURATORIAL NOTE / ABOUT (shared two-column label grid)
+     ========================================================= */
+  .note{
+    padding-block:clamp(3rem,7vw,5.5rem);
+    border-bottom:1px solid var(--rule);
+  }
+  .note__grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(1.5rem,4vw,3rem);
+  }
+  @media (min-width:760px){
+    .note__grid{grid-template-columns:minmax(8rem,18%) minmax(0,1fr)}
+  }
+  .label{
+    font-family:var(--sans);
+    font-size:.66rem;
+    font-weight:600;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+    padding-top:.4rem;
+  }
+  .note__body p{
+    font-size:clamp(1.0625rem,1rem + 0.45vw,1.3125rem);
+    line-height:1.6;
+    max-width:var(--measure);
+    margin:0 0 1.1rem;
+    color:var(--ink);
+  }
+  .note__body p:last-child{margin-bottom:0}
 
-        /* MAIN HERO SECTION */
-        .hero {
-            max-width: 1100px;
-            margin: 60px auto 40px auto;
-            text-align: center;
-            padding: 0 20px;
-        }
+  /* =========================================================
+     THE WORK
+     ========================================================= */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:1rem;
+    padding-block:clamp(3rem,7vw,5rem) clamp(1.5rem,3vw,2.5rem);
+    border-bottom:1px solid var(--rule-strong);
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(1.75rem,4vw,2.75rem);
+    letter-spacing:-.015em;
+    line-height:1;
+    margin:0;
+  }
+  .section-head__count{
+    font-family:var(--sans);
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
 
-        .hero h1 {
-            font-size: clamp(2rem, 6vw + 0.5rem, 3rem);
-            color: var(--navy);
-            margin-bottom: 20px;
-        }
+  .work{
+    padding-block:clamp(3.5rem,8vw,7rem);
+    border-bottom:1px solid var(--rule);
+  }
+  .work:nth-of-type(even){background:var(--tint)}
 
-        .main-piece {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 10px solid white;
-            margin-bottom: 30px;
-        }
+  /* row 1: index numeral + title block */
+  .work__head{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(.75rem,3vw,2rem);
+    align-items:start;
+    margin-bottom:clamp(2rem,5vw,3.5rem);
+  }
+  @media (min-width:760px){
+    .work__head{grid-template-columns:minmax(6rem,12%) minmax(0,1fr)}
+  }
+  .work__num{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:clamp(2.75rem,8vw,5.5rem);
+    line-height:.85;
+    letter-spacing:-.03em;
+    color:var(--ink);
+    font-feature-settings:"tnum" 1;
+    margin:0;
+  }
+  .work__num small{
+    display:block;
+    font-size:.7rem;
+    font-weight:500;
+    letter-spacing:.2em;
+    color:var(--ink-soft);
+    margin-top:.7rem;
+    text-transform:uppercase;
+  }
+  .work__titleblock h3{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(1.5rem,4.5vw,3rem);
+    line-height:1.02;
+    letter-spacing:-.015em;
+    margin:0 0 1rem;
+  }
+  .work__titleblock h3 .roman{
+    color:var(--ink-soft);
+    font-weight:500;
+    font-size:.62em;
+    letter-spacing:.04em;
+    margin-right:.45em;
+  }
+  .data{
+    font-family:var(--sans);
+    font-size:.72rem;
+    font-weight:500;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    line-height:1.9;
+    margin:0;
+    max-width:52ch;
+  }
+  .data .avail{color:var(--ink);font-weight:600}
 
-        /* ABOUT THE ATELIER SECTION */
-        .about-section {
-            background: white;
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
+  /* body: text + figures, asymmetric */
+  .work__body{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(2rem,5vw,4rem);
+  }
+  @media (min-width:900px){
+    .work__body{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+  }
+  .work__text .caption{
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:1.0625rem;
+    margin:0 0 1.25rem;
+    max-width:50ch;
+    line-height:1.55;
+  }
+  .work__text p.desc{
+    margin:0;
+    max-width:var(--measure);
+    color:var(--ink);
+    line-height:1.7;
+  }
 
-        .about-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+  figure{margin:0}
+  .work-fig{
+    display:flex;
+    flex-direction:column;
+    gap:clamp(1.25rem,3vw,2rem);
+  }
+  .work-fig img{
+    display:block;
+    width:100%;
+    height:auto;
+    background:var(--tint);
+  }
+  .work:nth-of-type(even) .work-fig img{background:#fff}
+  figcaption{
+    font-family:var(--sans);
+    font-size:.66rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:.85rem;
+    padding-top:.6rem;
+    border-top:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+  }
+  figcaption .tag{color:var(--ink)}
 
-        .about-container h2 {
-            font-size: 2rem;
-            color: var(--navy);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+  /* secondary pair under the lead image */
+  .fig-pair{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(11rem,100%),1fr));
+    gap:clamp(1rem,2.5vw,1.5rem);
+  }
 
-        .about-container p {
-            font-size: 1.15rem;
-            font-style: italic;
-            color: #55637a;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+  /* =========================================================
+     ENQUIRE
+     ========================================================= */
+  .enquire{
+    padding-block:clamp(4rem,9vw,7.5rem);
+    border-bottom:1px solid var(--rule);
+  }
+  .enquire__grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(1.5rem,4vw,3rem);
+  }
+  @media (min-width:760px){
+    .enquire__grid{grid-template-columns:minmax(8rem,18%) minmax(0,1fr)}
+  }
+  .enquire h2{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(2rem,6vw,4rem);
+    letter-spacing:-.02em;
+    line-height:.95;
+    margin:0 0 1.6rem;
+  }
+  .enquire p{
+    max-width:var(--measure);
+    margin:0 0 2rem;
+    line-height:1.7;
+  }
+  .enquire a.inline{
+    color:var(--ink);
+    text-decoration:underline;
+    text-underline-offset:3px;
+    text-decoration-thickness:1px;
+    font-weight:500;
+  }
+  .enquire a.inline:hover,
+  .enquire a.inline:focus-visible{text-decoration-thickness:2px}
 
-        /* GALLERY SECTION */
-        .gallery {
-            max-width: 1100px;
-            margin: 80px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-            gap: 50px;
-            padding: 0 20px;
-        }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:.9rem;
+    font-family:var(--sans);
+    font-size:.78rem;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#fff;
+    background:var(--ink);
+    border:1px solid var(--ink);
+    padding:1.05rem 1.8rem;
+    text-decoration:none;
+    transition:background .25s ease,color .25s ease,transform .25s ease;
+  }
+  .cta::after{
+    content:"\2192";
+    font-size:1.1em;
+    transition:transform .25s ease;
+  }
+  .cta:hover,.cta:focus-visible{background:#fff;color:var(--ink)}
+  .cta:hover::after,.cta:focus-visible::after{transform:translateX(4px)}
 
-        .section-heading {
-            grid-column: 1 / -1;
-            margin: 0;
-            font-size: 2rem;
-            color: var(--navy);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
+  .enquire__direct{
+    margin-top:1.75rem;
+    font-family:var(--sans);
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .enquire__direct a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule-strong)}
 
-        .gallery-item {
-            text-align: center;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-        }
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  .site-foot{
+    padding-block:clamp(3rem,7vw,5rem);
+  }
+  .site-foot__grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:1.5rem 2rem;
+    align-items:flex-end;
+  }
+  .site-foot .logo{
+    width:120px;height:auto;display:block;
+    filter:grayscale(1) contrast(1.05);
+    margin-bottom:1.25rem;
+  }
+  .foot-lines p{
+    margin:0;
+    font-family:var(--sans);
+    font-size:.72rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    line-height:1.9;
+  }
+  .foot-lines a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+  .foot-lines a:hover,.foot-lines a:focus-visible{border-color:var(--rule-strong)}
+  .foot-top{
+    font-family:var(--sans);
+    text-align:right;
+    font-size:.66rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .foot-top a{color:var(--ink-soft);text-decoration:none}
+  .foot-top a:hover,.foot-top a:focus-visible{color:var(--ink)}
 
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            max-height: 450px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
+  /* bracketed tokens, lightly de-emphasized */
+  .tok{color:var(--token);font-style:italic;font-weight:400}
 
-        .gallery-item img:hover {
-            transform: scale(1.02);
-        }
-
-        .details {
-            margin-top: 20px;
-        }
-
-        .price-tag {
-            font-style: italic;
-            color: var(--navy);
-            font-weight: bold;
-        }
-
-        /* FOOTER */
-        footer {
-            background: var(--navy);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: white;
-            color: var(--navy);
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            border-radius: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: background 0.2s;
-        }
-
-        .contact-btn:hover {
-            background: #f1f5f9;
-        }
-
-        .contact-btn:focus-visible {
-            outline: 3px solid #fff;
-            outline-offset: 3px;
-            background: #f1f5f9;
-        }
-
-        .footer-copyright {
-            margin-top: 30px;
-            opacity: 0.7;
-        }
-    </style>
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{
+      transition:none !important;
+      animation:none !important;
+    }
+  }
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<header>
-    <img src="images/logo.jpg" alt="Iris Doulou Fine Art" class="logo" width="430" height="211">
-    <nav>
-        <a href="#about">About</a>
-        <a href="#collection">Collection</a>
-        <a href="#contact">Contact</a>
+<header class="site-head">
+  <div class="wrap site-head__inner">
+    <a class="brand" href="#top" aria-label="Iris Doulou Atelier — home">
+      <span class="brand__name">Iris Doulou</span>
+      <span class="brand__sub">Atelier</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#work">The Work</a>
+      <a class="nav--cta" href="#enquire">Enquire</a>
     </nav>
+  </div>
 </header>
 
-<section class="hero">
-    <h1>The Signature Collection</h1>
-    <img src="images/main-blue.jpg" alt="'The Ocean' — abstract blue-and-white seascape painting shown on a wall" class="main-piece" fetchpriority="high" width="896" height="1195">
-    <div class="details">
-        <h2>"The Ocean"</h2>
-        <p>Original Fine Art Artwork</p>
-        <p class="price-tag">Private Inquiry Only</p>
-    </div>
-</section>
+<main id="main">
 
-<section class="about-section" id="about">
-    <div class="about-container">
-        <h2>About the Atelier</h2>
-        <p>Iris Doulou Atelier is a space where contemporary fine art meets emotional depth. Focused on original creations, the studio explores texture, light, and form to bring compelling visual stories to life. Every piece is meticulously crafted, serving as a unique statement of modern aesthetics and artistic authenticity.</p>
+  <!-- HERO -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="hero__kicker">Atelier · Original Paintings by Inquiry</p>
+      <h1 id="hero-title">Iris Doulou</h1>
+      <p class="hero__sub">Two original paintings — one drawn from water, one from fire. The complete current work of the atelier, available to collectors by private inquiry.</p>
+      <p class="hero__meta">
+        <span>Two works</span>
+        <span>One of one</span>
+        <span>Direct from the studio</span>
+      </p>
     </div>
-</section>
+  </section>
 
-<section class="gallery" id="collection">
-    <h2 class="section-heading">The Collection</h2>
-    <div class="gallery-item">
-        <img src="images/red-butterfly.jpg" alt="'Nature' — red mixed-media painting with a butterfly and an orange leaf" loading="lazy" width="1008" height="1042">
-        <div class="details">
-            <h3>"Nature"</h3>
-            <p>Original Artwork</p>
+  <!-- CURATORIAL NOTE -->
+  <section class="note" aria-labelledby="note-label">
+    <div class="wrap note__grid">
+      <p class="label" id="note-label">Curatorial Note</p>
+      <div class="note__body">
+        <p>Both paintings begin with the same impulse: to let an element — water, then fire — build its own surface in paint. Colour is laid on thick and worked by knife and brush until texture, not outline, carries the image. &ldquo;The Ocean&rdquo; moves from stillness into breaking foam; &ldquo;Nature&rsquo;s Whisper&rdquo; gathers heat, flower, and flight into a single red field. Two studies of one idea, made to be seen in person and lived with up close.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="note" id="about" aria-labelledby="about-h">
+    <div class="wrap note__grid">
+      <h2 class="label" id="about-h">About</h2>
+      <div class="note__body">
+        <p>Iris Doulou paints in heavy texture and saturated colour. Her surfaces are built up by knife and brush until the paint itself carries the subject — water breaking into foam, a leaf catching fire. The atelier keeps a small, deliberate body of work: each canvas is one of one, signed, and sold directly from the studio with a certificate of authenticity. <span class="tok">[Optional bio line — see [BIO] placeholder.]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE WORK -->
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="work-h">The Work</h2>
+        <span class="section-head__count">Two works · 01 — 02</span>
+      </div>
+    </div>
+
+    <!-- WORK I -->
+    <article class="work" aria-labelledby="work-1-title">
+      <div class="wrap">
+        <div class="work__head">
+          <p class="work__num">01<small>The Work</small></p>
+          <div class="work__titleblock">
+            <h3 id="work-1-title"><span class="roman">Work&nbsp;I</span>&ldquo;The Ocean&rdquo;</h3>
+            <p class="data">
+              Original painting on canvas · <span class="tok">[MEDIUM]</span> · <span class="tok">[YEAR]</span> · <span class="tok">[DIMENSIONS]</span> · framed · <span class="avail">available, by private inquiry</span>
+            </p>
+          </div>
         </div>
-    </div>
 
-    <div class="gallery-item">
-        <img src="images/ocean-detail.jpg" alt="Close-up of 'The Ocean' showing blue and white textured brushwork" loading="lazy" width="1536" height="2048">
-        <div class="details">
-            <h3>"The Ocean" — Detail</h3>
-            <p>Original Artwork</p>
+        <div class="work__body">
+          <div class="work__text">
+            <p class="caption">Teal water breaking into thick white surf, built in heavy impasto.</p>
+            <p class="desc">A high, aerial view of water caught at the moment the surf turns. Deep teal sweeps across the upper canvas in long, curving strokes, then breaks along a diagonal into a wide band of white impasto built up so thickly the foam stands off the surface in ridges. Flecks of white scatter across the blue like light on a moving sea; close up, the paint reads as much like weather and sand as like brushwork.</p>
+          </div>
+
+          <div class="work-fig">
+            <figure>
+              <img src="images/main-blue.jpg" width="896" height="1195" fetchpriority="high"
+                   alt="'The Ocean' by Iris Doulou — an aerial abstract seascape of deep teal water sweeping into a diagonal band of thick white impasto surf.">
+              <figcaption><span>In the room</span><span class="tag">Plate 01·A</span></figcaption>
+            </figure>
+
+            <div class="fig-pair">
+              <figure>
+                <img src="images/ocean-full.jpg" width="504" height="344" loading="lazy"
+                     alt="Full view of 'The Ocean' canvas: teal water above, a diagonal band of white impasto surf below, in a thin pale frame.">
+                <figcaption><span>Full canvas</span><span class="tag">Plate 01·B</span></figcaption>
+              </figure>
+              <figure>
+                <img src="images/ocean-detail.jpg" width="1536" height="2048" loading="lazy"
+                     alt="Macro detail of 'The Ocean': ridges of thick white impasto and scattered flecks rising off the teal surface.">
+                <figcaption><span>Surface detail</span><span class="tag">Plate 01·C</span></figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </article>
 
-<footer id="contact">
-    <h2>Acquire a Masterpiece</h2>
-    <p>For private sales, worldwide shipping details, and authenticity certificates.</p>
-    <a href="mailto:Doulou.iris@gmail.com?subject=Private%20Viewing%20Request&amp;body=Hello%20Iris,%20I%20am%20interested%20in%20your%20artwork." class="contact-btn">Request Private Viewing</a>
-    <p class="footer-copyright">© 2026 Iris Doulou Atelier</p>
+    <!-- WORK II -->
+    <article class="work" aria-labelledby="work-2-title">
+      <div class="wrap">
+        <div class="work__head">
+          <p class="work__num">02<small>The Work</small></p>
+          <div class="work__titleblock">
+            <h3 id="work-2-title"><span class="roman">Work&nbsp;II</span>&ldquo;Nature&rsquo;s Whisper&rdquo;</h3>
+            <p class="data">
+              Mixed media on canvas · 2024 · <span class="tok">[DIMENSIONS]</span> · framed · <span class="avail">available, by private inquiry</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="work__body">
+          <div class="work__text">
+            <p class="caption">A flame-coloured leaf, scattered flowers, and a butterfly on a red impasto ground.</p>
+            <p class="desc">A single leaf burns at the centre of a deep red field, worked in molten orange and gold with its veins cut in as raised ridges of paint. Above it, a loose cluster of small purple and pink flowers; to one side, a butterfly with finely textured, glinting wings. The red ground is laid on in thick, restless palette-knife strokes, so the whole surface holds the light and seems to move.</p>
+          </div>
+
+          <div class="work-fig">
+            <figure>
+              <img src="images/red-butterfly.jpg" width="1008" height="1042" loading="lazy"
+                   alt="'Nature's Whisper' by Iris Doulou (mixed media, 2024) — a square red palette-knife canvas with a flame-coloured leaf, purple and pink flowers, and a glittering butterfly, in a black frame.">
+              <figcaption><span>In the room</span><span class="tag">Plate 02·A</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ENQUIRE -->
+  <section class="enquire" id="enquire" aria-labelledby="enquire-h">
+    <div class="wrap enquire__grid">
+      <h2 class="label" id="enquire-h">Enquire</h2>
+      <div>
+        <p>Each painting is an original, sold once, directly by the artist with a signed certificate of authenticity. Works ship worldwide, fully insured and professionally packed; shipping and any duties are arranged with the buyer at the time of sale. Iris replies to inquiries personally, typically within <span class="tok">[RESPONSE TIME]</span>. To ask about availability, price, or dimensions, write to <a class="inline" href="mailto:Doulou.iris@gmail.com">Doulou.iris@gmail.com</a>.</p>
+
+        <a class="cta" href="mailto:Doulou.iris@gmail.com?subject=Inquiry%20%E2%80%94%20Iris%20Doulou%20Atelier&amp;body=Hello%20Iris%2C%0A%0AI%27d%20like%20to%20inquire%20about%3A%0A%0AWork%3A%20(The%20Ocean%20%2F%20Nature%27s%20Whisper)%0AMy%20question%3A%20(availability%20%2F%20price%20%2F%20dimensions%20%2F%20shipping%20to%20___)%0A%0AThank%20you%2C%0A">Enquire about a work</a>
+
+        <p class="enquire__direct">Or write directly · <a href="mailto:Doulou.iris@gmail.com">Doulou.iris@gmail.com</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap site-foot__grid">
+    <div class="foot-lines">
+      <img class="logo" src="images/logo.jpg" width="430" height="211" loading="lazy" alt="Iris Doulou Atelier logo.">
+      <p>Iris Doulou Atelier · Original paintings by inquiry · <a href="mailto:Doulou.iris@gmail.com">Doulou.iris@gmail.com</a></p>
+      <p>&copy; 2026 Iris Doulou Atelier · All works original and one of one</p>
+    </div>
+    <p class="foot-top"><a href="#top">Back to top &uarr;</a></p>
+  </div>
 </footer>
 
 </body>
