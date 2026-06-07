@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Doulou Fine Art | Atelier</title>
+    <style>
+        :root {
+            --navy: #1e293b;
+            --ivory: #fffaf5;
+            --text: #475569;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--ivory);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* HEADER & LOGO */
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            max-width: 300px;
+            height: auto;
+        }
+
+        nav {
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: bold;
+        }
+
+        /* MAIN HERO SECTION */
+        .hero {
+            max-width: 1100px;
+            margin: 60px auto 40px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .main-piece {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 10px solid white;
+            margin-bottom: 30px;
+        }
+
+        /* ABOUT THE ATELIER SECTION */
+        .about-section {
+            background: white;
+            padding: 59px 20px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-container h2 {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-container p {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #55637a;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* GALLERY SECTION */
+        .gallery {
+            max-width: 1100px;
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .gallery-item {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .price-tag {
+            font-style: italic;
+            color: var(--navy);
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+
+        .contact-btn:hover {
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="Iris Doulou Fine Art" class="logo">
+    <nav>
+        <a href="#about">About</a>
+        <a href="#collection">Collection</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>The Signature Collection</h1>
+    <img src="main-blue.jpg" alt="The Ocean" class="main-piece">
+    <div class="details">
+        <h2>"The Ocean"</h2>
+        <p>Original Fine Art Artwork</p>
+        <p class="price-tag">Private Inquiry Only</p>
+    </div>
+</section>
+
+<!-- ΝΕΑ ΕΝΟΤΗΤΑ: ABOUT THE ATELIER -->
+<section class="about-section" id="about">
+    <div class="about-container">
+        <h2>About the Atelier</h2>
+        <p>Iris Doulou Atelier is a space where contemporary fine art meets emotional depth. Focused on original creations, the studio explores texture, light, and form to bring compelling visual stories to life. Every piece is meticulously crafted, serving as a unique statement of modern aesthetics and artistic authenticity.</p>
+    </div>
+</section>
+
+<section class="gallery" id="collection">
+    <div class="gallery-item">
+        <img src="red-butterfly.jpg" alt="Nature">
+        <div class="details">
+            <h3>"Nature"</h3>
+            <p>Original Artwork</p>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="triptych.jpg" alt="Iris Colours">
+        <div class="details">
+            <h3>"Iris Colours"</h3>
+            <p>Original Artwork</p>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <h2>Acquire a Masterpiece</h2>
+    <p>For private sales, worldwide shipping details, and authenticity certificates.</p>
+    <a href="mailto:Doulou.iris@gmail.com?subject=Private%20Viewing%20Request&body=Hello%20Iris,%20I%20am%20interested%20in%20your%20artwork." class="contact-btn">Request Private Viewing</a>
+    <p style="margin-top: 30px; opacity: 0.7;">© 2026 Iris Doulou Atelier</p>
+</footer>
+
+</body>
+</html>
