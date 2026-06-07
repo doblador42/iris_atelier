@@ -36,7 +36,8 @@ body{
   width:100%;
   max-width:1280px;
   margin-inline:auto;
-  padding-inline:clamp(1.25rem,5vw,4.5rem);
+  padding-left:max(clamp(1.25rem,5vw,4.5rem), env(safe-area-inset-left));
+  padding-right:max(clamp(1.25rem,5vw,4.5rem), env(safe-area-inset-right));
 }
 
 /* ---- skip link ---- */
@@ -126,6 +127,7 @@ figcaption,
   font-weight:700;
   font-size:1.0625rem;
   letter-spacing:.01em;
+  white-space:nowrap;
 }
 .brand__sub{
   font-weight:500;
@@ -148,6 +150,7 @@ figcaption,
   text-transform:uppercase;
   padding:.35rem 0;
   position:relative;
+  white-space:nowrap;
 }
 .nav a::after{
   content:"";
@@ -171,9 +174,18 @@ figcaption,
   background:var(--ink);
   color:#fff;
 }
-@media (max-width:430px){
-  .nav{gap:.9rem}
-  .nav a:not(.nav--cta){display:none}
+/* keep all nav links on phones — shrink to fit instead of hiding them,
+   and grow the tap targets */
+@media (max-width:560px){
+  .nav{gap:.6rem}
+  .nav a{font-size:.6rem;letter-spacing:.06em;padding:.7rem 0}
+  .nav a.nav--cta{padding:.5rem .65rem;letter-spacing:.08em}
+}
+@media (max-width:380px){
+  .brand__name{font-size:.9rem}
+  .nav{gap:.45rem}
+  .nav a{font-size:.55rem;letter-spacing:.03em}
+  .nav a.nav--cta{padding:.42rem .55rem}
 }
 
 /* =========================================================

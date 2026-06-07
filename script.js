@@ -88,8 +88,10 @@
   }
 })();
 
-/* hero cursor-trail / ripple — decorative, isolated so a failure here can't
-   affect the enhancements above. Skipped entirely under reduced-motion. */
+/* hero ambient field — faint ink motes that drift continuously, respond to
+   device tilt (phones) and the pointer (desktop), with a ripple on tap/click.
+   Decorative and isolated; fully skipped under reduced-motion, paused when the
+   hero is off-screen or the tab is hidden. */
 (function () {
   'use strict';
   try {
@@ -98,83 +100,138 @@
     var canvas = hero && hero.querySelector('.hero-fx');
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext('2d');
-    var INK = '26,26,26';                 /* --ink, as rgb for alpha compositing */
+    var INK = '26,26,26';                  /* --ink, as rgb for alpha compositing */
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0;
 
-    function resize() {
+    var motes = [], sparks = [], rings = [];
+    var driftX = 0, driftY = 0, tgtX = 0, tgtY = 0;   /* tilt-driven flow, eased */
+    var px = 0, py = 0, pActive = false;              /* pointer (repel) */
+    var raf = null, visible = true;
+
+    function rand(a, b) { return a + Math.random() * (b - a); }
+    function newMote() {
+      return { x: rand(0, W || 320), y: rand(0, H || 320),
+               vx: rand(-0.15, 0.15), vy: rand(-0.15, 0.15),
+               r: rand(0.8, 2.2), a: rand(0.16, 0.30) };
+    }
+    function build() {
       var r = canvas.getBoundingClientRect();
       W = r.width; H = r.height;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var target = Math.max(24, Math.min(64, Math.round(W * H / 14000)));
+      while (motes.length < target) motes.push(newMote());
+      motes.length = target;
     }
-    resize();
-    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
-    else window.addEventListener('resize', resize);
-
-    var dots = [], rings = [], MAX = 160, raf = null, lastX = null, lastY = null;
 
     function tick() {
+      if (!visible) { raf = null; return; }
       ctx.clearRect(0, 0, W, H);
-      for (var i = dots.length - 1; i >= 0; i--) {
-        var d = dots[i];
-        d.x += d.vx; d.y += d.vy; d.vx *= 0.94; d.vy *= 0.94; d.life--;
-        if (d.life <= 0) { dots.splice(i, 1); continue; }
+      driftX += (tgtX - driftX) * 0.05;
+      driftY += (tgtY - driftY) * 0.05;
+
+      for (var i = 0; i < motes.length; i++) {
+        var m = motes[i];
+        m.x += m.vx + driftX;
+        m.y += m.vy + driftY;
+        if (pActive) {                     /* push motes away from the pointer */
+          var dx = m.x - px, dy = m.y - py, d2 = dx * dx + dy * dy;
+          if (d2 < 14400 && d2 > 1) {      /* within 120px */
+            var d = Math.sqrt(d2), f = (1 - d / 120) * 2.6;
+            m.x += dx / d * f; m.y += dy / d * f;
+          }
+        }
+        if (m.x < -6) m.x = W + 6; else if (m.x > W + 6) m.x = -6;
+        if (m.y < -6) m.y = H + 6; else if (m.y > H + 6) m.y = -6;
         ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, 6.2832);
-        ctx.fillStyle = 'rgba(' + INK + ',' + (d.life / d.max) * 0.32 + ')';
+        ctx.arc(m.x, m.y, m.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(' + INK + ',' + m.a + ')';
         ctx.fill();
       }
-      for (var j = rings.length - 1; j >= 0; j--) {
-        var g = rings[j];
-        g.r += (g.maxR - g.r) * 0.08; g.life--;
-        if (g.life <= 0) { rings.splice(j, 1); continue; }
-        ctx.beginPath();
-        ctx.arc(g.x, g.y, g.r, 0, 6.2832);
-        ctx.strokeStyle = 'rgba(' + INK + ',' + (g.life / g.max) * 0.22 + ')';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-      raf = (dots.length || rings.length) ? requestAnimationFrame(tick) : null;
-    }
-    function start() { if (!raf) raf = requestAnimationFrame(tick); }
 
-    function spawn(x, y, vx, vy) {
-      if (dots.length >= MAX) return;
-      dots.push({
-        x: x, y: y,
-        vx: vx * 0.12 + (Math.random() - 0.5) * 0.6,
-        vy: vy * 0.12 + (Math.random() - 0.5) * 0.6 - 0.15,
-        r: 0.8 + Math.random() * 1.6,
-        life: 38 + (Math.random() * 28 | 0), max: 66
-      });
+      for (var s = sparks.length - 1; s >= 0; s--) {
+        var p = sparks[s];
+        p.x += p.vx; p.y += p.vy; p.vx *= 0.93; p.vy *= 0.93; p.life--;
+        if (p.life <= 0) { sparks.splice(s, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(' + INK + ',' + (p.life / p.max) * 0.34 + ')';
+        ctx.fill();
+      }
+      for (var g = rings.length - 1; g >= 0; g--) {
+        var ring = rings[g];
+        ring.r += (ring.maxR - ring.r) * 0.08; ring.life--;
+        if (ring.life <= 0) { rings.splice(g, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(ring.x, ring.y, ring.r, 0, 6.2832);
+        ctx.strokeStyle = 'rgba(' + INK + ',' + (ring.life / ring.max) * 0.22 + ')';
+        ctx.lineWidth = 1; ctx.stroke();
+      }
+      raf = requestAnimationFrame(tick);
     }
+    function start() { if (!raf && visible) raf = requestAnimationFrame(tick); }
+    function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
 
     function at(e) { var r = canvas.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
 
     hero.addEventListener('pointermove', function (e) {
-      var p = at(e), x = p[0], y = p[1];
-      if (x < 0 || y < 0 || x > W || y > H) { lastX = lastY = null; return; }
-      if (lastX === null) { lastX = x; lastY = y; return; }
-      var dx = x - lastX, dy = y - lastY, dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 6) return;
-      var n = Math.min(3, 1 + (dist / 18 | 0));
-      for (var k = 0; k < n; k++) { var t = k / n; spawn(lastX + dx * t, lastY + dy * t, dx, dy); }
-      lastX = x; lastY = y;
-      start();
+      var p = at(e); px = p[0]; py = p[1];
+      pActive = px >= 0 && py >= 0 && px <= W && py <= H;
     });
+    hero.addEventListener('pointerleave', function () { pActive = false; });
 
     hero.addEventListener('pointerdown', function (e) {
+      enableTilt();                        /* first gesture unlocks iOS motion */
       var p = at(e), x = p[0], y = p[1];
       rings.push({ x: x, y: y, r: 4, maxR: 70 + Math.random() * 30, life: 46, max: 46 });
-      for (var k = 0; k < 10; k++) { var a = (k / 10) * 6.2832; spawn(x, y, Math.cos(a) * 8, Math.sin(a) * 8); }
+      for (var k = 0; k < 12; k++) {
+        var ang = (k / 12) * 6.2832;
+        sparks.push({ x: x, y: y, vx: Math.cos(ang) * rand(1, 3), vy: Math.sin(ang) * rand(1, 3),
+                      r: rand(0.8, 2), life: 40, max: 40 });
+      }
       start();
     });
 
+    /* device tilt → drift direction */
+    function onTilt(e) {
+      if (e.gamma == null && e.beta == null) return;
+      var g = Math.max(-45, Math.min(45, e.gamma || 0));
+      var b = Math.max(-45, Math.min(45, (e.beta || 0) - 45));
+      tgtX = (g / 45) * 0.5;
+      tgtY = (b / 45) * 0.35;
+    }
+    var tiltOn = false;
+    function enableTilt() {
+      if (tiltOn) return;
+      var DOE = window.DeviceOrientationEvent;
+      if (DOE && typeof DOE.requestPermission === 'function') {   /* iOS 13+ */
+        tiltOn = true;
+        DOE.requestPermission().then(function (st) {
+          if (st === 'granted') window.addEventListener('deviceorientation', onTilt);
+        }).catch(function () {});
+      }
+    }
+    /* Android / desktop sensors need no permission — attach right away */
+    if (window.DeviceOrientationEvent && typeof window.DeviceOrientationEvent.requestPermission !== 'function') {
+      window.addEventListener('deviceorientation', onTilt);
+    }
+
+    build();
+    if ('ResizeObserver' in window) new ResizeObserver(build).observe(canvas);
+    else window.addEventListener('resize', build);
+
+    if ('IntersectionObserver' in window) {       /* run only while hero is in view */
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible) start(); else stop();
+      }, { threshold: 0 }).observe(hero);
+    }
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden && raf) { cancelAnimationFrame(raf); raf = null; }
-      else if (!document.hidden && (dots.length || rings.length)) start();
+      if (document.hidden) stop(); else start();
     });
+
+    start();
   } catch (err) { /* decorative only */ }
 })();
