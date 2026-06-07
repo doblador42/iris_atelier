@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iris Doulou Fine Art | Atelier</title>
+
+    <meta name="description" content="Iris Doulou Atelier — original contemporary fine art by painter Iris Doulou. Texture, light, and form in unique, collectible paintings. Private viewings by inquiry.">
+    <link rel="canonical" href="https://irisdoulouatelier.com/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231e293b'/><text x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23fffaf5' text-anchor='middle'>I</text></svg>">
+
+    <!-- Open Graph / social link previews -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Iris Doulou Fine Art | Atelier">
+    <meta property="og:description" content="Original contemporary fine art by painter Iris Doulou. Private viewings by inquiry.">
+    <meta property="og:url" content="https://irisdoulouatelier.com/">
+    <meta property="og:image" content="https://irisdoulouatelier.com/images/main-blue.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Iris Doulou Fine Art | Atelier">
+    <meta name="twitter:description" content="Original contemporary fine art by painter Iris Doulou. Private viewings by inquiry.">
+    <meta name="twitter:image" content="https://irisdoulouatelier.com/images/main-blue.jpg">
+
     <style>
         :root {
             --navy: #1e293b;
@@ -29,6 +45,7 @@
 
         .logo {
             max-width: 300px;
+            height: auto;
         }
 
         nav {
@@ -45,6 +62,17 @@
             font-weight: bold;
         }
 
+        nav a:hover,
+        nav a:focus-visible {
+            color: #0f172a;
+            text-decoration: underline;
+        }
+
+        nav a:focus-visible {
+            outline: 2px solid var(--navy);
+            outline-offset: 4px;
+        }
+
         /* MAIN HERO SECTION */
         .hero {
             max-width: 1100px;
@@ -54,7 +82,7 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 6vw + 0.5rem, 3rem);
             color: var(--navy);
             margin-bottom: 20px;
         }
@@ -62,6 +90,7 @@
         .main-piece {
             width: 100%;
             max-width: 800px;
+            height: auto;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 10px solid white;
             margin-bottom: 30px;
@@ -102,9 +131,19 @@
             max-width: 1100px;
             margin: 80px auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
             gap: 50px;
             padding: 0 20px;
+        }
+
+        .section-heading {
+            grid-column: 1 / -1;
+            margin: 0;
+            font-size: 2rem;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
         .gallery-item {
@@ -117,6 +156,7 @@
 
         .gallery-item img {
             width: 100%;
+            height: auto;
             max-height: 450px;
             object-fit: contain;
             transition: transform 0.3s ease;
@@ -163,6 +203,12 @@
             background: #f1f5f9;
         }
 
+        .contact-btn:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+            background: #f1f5f9;
+        }
+
         .footer-copyright {
             margin-top: 30px;
             opacity: 0.7;
@@ -172,7 +218,7 @@
 <body>
 
 <header>
-    <img src="images/logo.jpg" alt="Iris Doulou Fine Art" class="logo">
+    <img src="images/logo.jpg" alt="Iris Doulou Fine Art" class="logo" width="430" height="211">
     <nav>
         <a href="#about">About</a>
         <a href="#collection">Collection</a>
@@ -182,7 +228,7 @@
 
 <section class="hero">
     <h1>The Signature Collection</h1>
-    <img src="main-blue.jpg" alt="The Ocean" class="main-piece">
+    <img src="images/main-blue.jpg" alt="'The Ocean' — abstract blue-and-white seascape painting shown on a wall" class="main-piece" fetchpriority="high" width="896" height="1195">
     <div class="details">
         <h2>"The Ocean"</h2>
         <p>Original Fine Art Artwork</p>
@@ -198,8 +244,9 @@
 </section>
 
 <section class="gallery" id="collection">
+    <h2 class="section-heading">The Collection</h2>
     <div class="gallery-item">
-        <img src="red-butterfly.jpg" alt="Nature">
+        <img src="images/red-butterfly.jpg" alt="'Nature' — red mixed-media painting with a butterfly and an orange leaf" loading="lazy" width="1008" height="1042">
         <div class="details">
             <h3>"Nature"</h3>
             <p>Original Artwork</p>
@@ -207,9 +254,9 @@
     </div>
 
     <div class="gallery-item">
-        <img src="triptych.jpg" alt="Iris Colours">
+        <img src="images/ocean-detail.jpg" alt="Close-up of 'The Ocean' showing blue and white textured brushwork" loading="lazy" width="1536" height="2048">
         <div class="details">
-            <h3>"Iris Colours"</h3>
+            <h3>"The Ocean" — Detail</h3>
             <p>Original Artwork</p>
         </div>
     </div>
@@ -218,7 +265,7 @@
 <footer id="contact">
     <h2>Acquire a Masterpiece</h2>
     <p>For private sales, worldwide shipping details, and authenticity certificates.</p>
-    <a href="mailto:Doulou.iris@gmail.com?subject=Private%20Viewing%20Request&body=Hello%20Iris,%20I%20am%20interested%20in%20your%20artwork." class="contact-btn">Request Private Viewing</a>
+    <a href="mailto:Doulou.iris@gmail.com?subject=Private%20Viewing%20Request&amp;body=Hello%20Iris,%20I%20am%20interested%20in%20your%20artwork." class="contact-btn">Request Private Viewing</a>
     <p class="footer-copyright">© 2026 Iris Doulou Atelier</p>
 </footer>
 
