@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iris Doulou — Atelier</title>
+<meta name="description" content="Original paintings by Iris Doulou: &quot;The Ocean,&quot; a textured blue-and-white abstract seascape, and &quot;Nature's Whisper,&quot; a red mixed-media canvas (2024). Two one-of-a-kind works, available to collectors by private inquiry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Dark Museum palette */
+    --bg:        #0e0e10;  /* near-black charcoal */
+    --bg-raise:  #16161a;  /* slightly raised panels */
+    --ink:       #ece9e2;  /* warm off-white text */
+    --ink-soft:  #b7b3aa;  /* muted body / secondary */
+    --ink-faint: #837f76;  /* tokens, fine print */
+    --line:      #2a2a2e;  /* thin low-contrast dividers */
+    --teal:      #6fb6c9;  /* drawn from "The Ocean" */
+    --ember:     #e0794f;  /* drawn from "Nature's Whisper" */
+    --measure:   66ch;     /* comfortable reading measure */
+    --frame:     #5a5a60;  /* soft canvas framing */
+
+    /* Contrast notes (WCAG AA), verified against --bg #0e0e10:
+       --ink #ece9e2      = 15.4:1  (AAA)
+       --ink-soft #b7b3aa =  9.0:1  (AAA)
+       --ink-faint #837f76=  4.6:1  (AA, fine print / tokens only)
+       --teal #6fb6c9     =  7.7:1  (AAA, links / accents)
+       --ember #e0794f    =  6.0:1  (AA) */
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight:400;
+    line-height:1.65;
+    font-size:clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  img{ display:block; max-width:100%; height:auto; }
+
+  a{ color:var(--teal); text-decoration:none; }
+  a:hover{ text-decoration:underline; text-underline-offset:0.2em; }
+
+  a:focus-visible,
+  button:focus-visible,
+  .cta:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    width:min(1180px, 100% - clamp(2rem, 6vw, 7rem));
+    margin-inline:auto;
+  }
+
+  .measure{ max-width:var(--measure); }
+
+  /* Bracketed editorial tokens the artist still needs to fill in */
+  .token{
+    color:var(--ink-faint);
+    font-style:italic;
+    font-weight:400;
+  }
+
+  .eyebrow{
+    font-size:0.75rem;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 1.1rem;
+    font-weight:500;
+  }
+
+  /* ---------- Header / Nav ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(14,14,16,0.82);
+    backdrop-filter:saturate(140%) blur(10px);
+    -webkit-backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    min-height:64px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+    color:var(--ink);
+    font-weight:500;
+    letter-spacing:0.04em;
+  }
+  .brand img{ width:34px; height:auto; border-radius:2px; opacity:0.95; }
+  .brand .brand-name{ font-size:0.95rem; }
+
+  .skip-link{
+    position:absolute;
+    left:-9999px; top:0;
+    background:var(--ink);
+    color:var(--bg);
+    padding:0.6rem 1rem;
+    border-radius:0 0 4px 0;
+    z-index:50;
+  }
+  .skip-link:focus{ left:0; }
+
+  nav[aria-label="Primary"] ul{
+    display:flex;
+    align-items:center;
+    gap:clamp(1.1rem, 3vw, 2.2rem);
+    list-style:none;
+    margin:0; padding:0;
+  }
+  nav[aria-label="Primary"] a{
+    color:var(--ink-soft);
+    font-size:0.9rem;
+    letter-spacing:0.04em;
+    padding:0.35em 0;
+    border-bottom:1px solid transparent;
+    transition:color .25s ease, border-color .25s ease;
+  }
+  nav[aria-label="Primary"] a:hover{
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom-color:var(--line);
+  }
+  nav[aria-label="Primary"] a.nav-enquire{
+    color:var(--ink);
+    border:1px solid var(--frame);
+    border-radius:999px;
+    padding:0.4em 1em;
+  }
+  nav[aria-label="Primary"] a.nav-enquire:hover{
+    border-color:var(--teal);
+    color:var(--teal);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:clamp(3.5rem, 9vw, 7.5rem) 0 clamp(2.5rem,6vw,4rem);
+    border-bottom:1px solid var(--line);
+  }
+  .hero h1{
+    font-size:clamp(2.7rem, 7vw, 5.4rem);
+    line-height:1.02;
+    font-weight:300;
+    letter-spacing:-0.02em;
+    margin:0 0 1.4rem;
+  }
+  .hero .subhead{
+    color:var(--ink-soft);
+    font-size:clamp(1.05rem, 1rem + 0.5vw, 1.3rem);
+    font-weight:300;
+    max-width:46ch;
+    margin:0;
+  }
+
+  /* ---------- Curatorial note ---------- */
+  .curatorial{
+    padding:clamp(2.5rem,6vw,4.5rem) 0;
+    border-bottom:1px solid var(--line);
+  }
+  .curatorial p{
+    font-size:clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+    font-weight:300;
+    line-height:1.7;
+    color:var(--ink);
+    margin:0;
+  }
+  .curatorial .title-q{ color:var(--ink-soft); }
+
+  /* ---------- Section rhythm ---------- */
+  section{ scroll-margin-top:80px; }
+  .section-pad{ padding:clamp(3rem,8vw,6rem) 0; }
+  h2{
+    font-size:clamp(1.5rem, 1.2rem + 1.4vw, 2.3rem);
+    font-weight:300;
+    letter-spacing:-0.01em;
+    margin:0 0 1.6rem;
+  }
+  .lead{ color:var(--ink-soft); }
+
+  /* ---------- About ---------- */
+  #about{ border-bottom:1px solid var(--line); }
+  #about p{ font-size:1.05rem; line-height:1.75; color:var(--ink-soft); }
+  #about p strong{ color:var(--ink); font-weight:500; }
+
+  /* ---------- The Work ---------- */
+  #work{ border-bottom:1px solid var(--line); }
+  .work-intro{ margin-bottom:clamp(2.5rem,6vw,4rem); }
+
+  .work{ padding:clamp(2.5rem,6vw,4.5rem) 0; }
+  .work + .work{ border-top:1px solid var(--line); }
+
+  .work-index{
+    font-size:0.8rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 0.7rem;
+    font-weight:500;
+  }
+  .work.ember .work-index{ color:var(--ember); }
+
+  .work h3{
+    font-size:clamp(1.6rem, 1.3rem + 1.6vw, 2.6rem);
+    font-weight:300;
+    letter-spacing:-0.01em;
+    margin:0 0 0.9rem;
+    line-height:1.1;
+  }
+
+  .dataline{
+    font-size:0.9rem;
+    color:var(--ink-soft);
+    letter-spacing:0.01em;
+    margin:0 0 1.6rem;
+    line-height:1.7;
+    max-width:60ch;
+  }
+  .caption{
+    font-size:1.05rem;
+    color:var(--ink);
+    font-style:italic;
+    margin:0 0 1.4rem;
+    max-width:var(--measure);
+  }
+  .work-desc{
+    color:var(--ink-soft);
+    line-height:1.75;
+    max-width:var(--measure);
+    margin:0;
+  }
+
+  /* Soft framing / glow for works against the dark */
+  .plate{
+    position:relative;
+    background:var(--bg-raise);
+    padding:clamp(0.9rem, 2vw, 1.6rem);
+    border:1px solid var(--line);
+    border-radius:3px;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.012) inset,
+      0 40px 90px -40px rgba(0,0,0,0.9),
+      0 10px 30px -20px rgba(0,0,0,0.8);
+  }
+  .plate img{ width:100%; height:auto; border-radius:2px; }
+  figure{ margin:0; }
+  figcaption{
+    font-size:0.8rem;
+    color:var(--ink-faint);
+    letter-spacing:0.06em;
+    margin-top:0.85rem;
+    text-transform:uppercase;
+  }
+
+  /* Work I layout */
+  .work-ocean .layout{
+    display:grid;
+    gap:clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns:minmax(0, 1.05fr) minmax(min(100%, 320px), 0.95fr);
+    align-items:start;
+  }
+  .ocean-supporting{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:clamp(1rem,2.5vw,1.6rem);
+    margin-top:clamp(1.6rem,4vw,2.4rem);
+  }
+
+  /* Work II layout */
+  .work-red .layout{
+    display:grid;
+    gap:clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns:minmax(min(100%, 320px), 0.95fr) minmax(0, 1.05fr);
+    align-items:center;
+  }
+
+  @media (max-width:760px){
+    .work-ocean .layout,
+    .work-red .layout{ grid-template-columns:1fr; }
+    .ocean-supporting{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Enquire ---------- */
+  #enquire{
+    background:var(--bg-raise);
+    border-bottom:1px solid var(--line);
+  }
+  #enquire p{
+    color:var(--ink-soft);
+    line-height:1.8;
+    max-width:var(--measure);
+    font-size:1.05rem;
+  }
+  #enquire .email-inline{ color:var(--teal); font-weight:500; }
+
+  .cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:clamp(1rem,3vw,1.8rem);
+    margin-top:2rem;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6em;
+    background:var(--ink);
+    color:var(--bg);
+    font-weight:500;
+    font-size:0.98rem;
+    letter-spacing:0.02em;
+    padding:0.95em 1.7em;
+    border-radius:999px;
+    border:1px solid var(--ink);
+    transition:background .25s ease, color .25s ease, transform .25s ease;
+  }
+  .cta:hover{
+    background:transparent;
+    color:var(--ink);
+    text-decoration:none;
+    transform:translateY(-1px);
+  }
+  .cta .arrow{ font-size:1.1em; line-height:1; }
+  .cta-email{ color:var(--ink-soft); font-size:0.95rem; }
+  .cta-email a{ color:var(--teal); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:clamp(2.5rem,6vw,3.5rem) 0;
+    color:var(--ink-soft);
+    font-size:0.88rem;
+  }
+  footer .foot-line{ margin:0 0 0.5rem; }
+  footer .foot-line a{ color:var(--ink); }
+  footer .copy{ color:var(--ink-faint); }
+  footer .foot-mark{
+    display:flex; align-items:center; gap:0.7rem;
+    margin-bottom:1.4rem;
+    color:var(--ink);
+    letter-spacing:0.04em;
+  }
+  footer .foot-mark img{ width:30px; height:auto; border-radius:2px; opacity:0.9; }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{
+      transition:none !important;
+      animation:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Iris Doulou Atelier — home">
+      <img src="images/logo.jpg" width="430" height="211" alt="Iris Doulou Atelier logo" style="width:34px;height:auto;">
+      <span class="brand-name">Iris Doulou&nbsp;Atelier</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">The Work</a></li>
+        <li><a class="nav-enquire" href="#enquire">Enquire</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="eyebrow">The Atelier · Current Work</p>
+      <h1 id="hero-title">Iris Doulou</h1>
+      <p class="subhead">Two original paintings — one drawn from water, one from fire. The complete current work of the atelier, available to collectors by private inquiry.</p>
+    </div>
+  </section>
+
+  <!-- CURATORIAL NOTE -->
+  <section class="curatorial" aria-label="Curatorial note">
+    <div class="wrap">
+      <p class="measure">Both paintings begin with the same impulse: to let an element — water, then fire — build its own surface in paint. Colour is laid on thick and worked by knife and brush until texture, not outline, carries the image. <span class="title-q">&ldquo;The Ocean&rdquo;</span> moves from stillness into breaking foam; <span class="title-q">&ldquo;Nature&rsquo;s Whisper&rdquo;</span> gathers heat, flower, and flight into a single red field. Two studies of one idea, made to be seen in person and lived with up close.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section-pad" aria-labelledby="about-title">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h2 id="about-title">About</h2>
+      <p class="measure"><strong>Iris Doulou</strong> paints in heavy texture and saturated colour. Her surfaces are built up by knife and brush until the paint itself carries the subject — water breaking into foam, a leaf catching fire. The atelier keeps a small, deliberate body of work: each canvas is one of one, signed, and sold directly from the studio with a certificate of authenticity. <span class="token">[Optional bio line — see [BIO] placeholder.]</span></p>
+    </div>
+  </section>
+
+  <!-- THE WORK -->
+  <section id="work" aria-labelledby="work-title">
+    <div class="wrap section-pad">
+      <div class="work-intro">
+        <p class="eyebrow">The Work</p>
+        <h2 id="work-title">The Work</h2>
+        <p class="lead measure">Two paintings, equally weighted. Each is shown in a room, as a full canvas, and — for <em>The Ocean</em> — close enough to read the paint itself.</p>
+      </div>
+
+      <!-- WORK I -->
+      <article class="work work-ocean teal" aria-labelledby="work1-title">
+        <div class="layout">
+          <div class="media-col">
+            <figure class="plate">
+              <img src="images/main-blue.jpg" width="896" height="1195"
+                   fetchpriority="high" decoding="async"
+                   alt="'The Ocean' by Iris Doulou — an aerial abstract seascape of deep teal water sweeping into a diagonal band of thick white impasto surf.">
+            </figure>
+          </div>
+          <div class="text-col">
+            <p class="work-index">Work I</p>
+            <h3 id="work1-title">The Ocean</h3>
+            <p class="dataline">Original painting on canvas · <span class="token">[MEDIUM]</span> · <span class="token">[YEAR]</span> · <span class="token">[DIMENSIONS]</span> · framed · available, by private inquiry</p>
+            <p class="caption">Teal water breaking into thick white surf, built in heavy impasto.</p>
+            <p class="work-desc">A high, aerial view of water caught at the moment the surf turns. Deep teal sweeps across the upper canvas in long, curving strokes, then breaks along a diagonal into a wide band of white impasto built up so thickly the foam stands off the surface in ridges. Flecks of white scatter across the blue like light on a moving sea; close up, the paint reads as much like weather and sand as like brushwork.</p>
+          </div>
+        </div>
+
+        <div class="ocean-supporting">
+          <figure class="plate">
+            <img src="images/ocean-full.jpg" width="504" height="344" loading="lazy" decoding="async"
+                 alt="Full canvas of 'The Ocean' — teal water in the upper field breaking diagonally into a wide band of ridged white impasto foam, in a thin silver frame.">
+            <figcaption>Full canvas</figcaption>
+          </figure>
+          <figure class="plate detail">
+            <img src="images/ocean-detail.jpg" width="1536" height="2048" loading="lazy" decoding="async"
+                 alt="Surface detail of 'The Ocean' — thick ridges of white and blue paint where the foam stands off the canvas, knife and brush marks visible up close.">
+            <figcaption>Surface detail</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- WORK II -->
+      <article class="work work-red ember" aria-labelledby="work2-title">
+        <div class="layout">
+          <div class="media-col">
+            <figure class="plate">
+              <img src="images/red-butterfly.jpg" width="1008" height="1042" loading="lazy" decoding="async"
+                   alt="'Nature's Whisper' by Iris Doulou (mixed media, 2024) — a square red palette-knife canvas with a flame-coloured leaf, purple and pink flowers, and a glittering butterfly, in a black frame.">
+            </figure>
+          </div>
+          <div class="text-col">
+            <p class="work-index">Work II</p>
+            <h3 id="work2-title">Nature&rsquo;s Whisper</h3>
+            <p class="dataline">Mixed media on canvas · 2024 · <span class="token">[DIMENSIONS]</span> · framed · available, by private inquiry</p>
+            <p class="caption">A flame-coloured leaf, scattered flowers, and a butterfly on a red impasto ground.</p>
+            <p class="work-desc">A single leaf burns at the centre of a deep red field, worked in molten orange and gold with its veins cut in as raised ridges of paint. Above it, a loose cluster of small purple and pink flowers; to one side, a butterfly with finely textured, glinting wings. The red ground is laid on in thick, restless palette-knife strokes, so the whole surface holds the light and seems to move.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ENQUIRE -->
+  <section id="enquire" class="section-pad" aria-labelledby="enquire-title">
+    <div class="wrap">
+      <p class="eyebrow">Enquire</p>
+      <h2 id="enquire-title">Enquire</h2>
+      <p>Each painting is an original, sold once, directly by the artist with a signed certificate of authenticity. Works ship worldwide, fully insured and professionally packed; shipping and any duties are arranged with the buyer at the time of sale. Iris replies to inquiries personally, typically within <span class="token">[RESPONSE TIME]</span>. To ask about availability, price, or dimensions, write to <a class="email-inline" href="mailto:Doulou.iris@gmail.com">Doulou.iris@gmail.com</a>.</p>
+      <div class="cta-row">
+        <a class="cta" href="mailto:Doulou.iris@gmail.com?subject=Inquiry%20%E2%80%94%20Iris%20Doulou%20Atelier&amp;body=Hello%20Iris%2C%0A%0AI%27d%20like%20to%20inquire%20about%3A%0A%0AWork%3A%20(The%20Ocean%20%2F%20Nature%27s%20Whisper)%0AMy%20question%3A%20(availability%20%2F%20price%20%2F%20dimensions%20%2F%20shipping%20to%20___)%0A%0AThank%20you%2C%0A">
+          Enquire about a work <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <span class="cta-email">or write directly: <a href="mailto:Doulou.iris@gmail.com">Doulou.iris@gmail.com</a></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer aria-label="Site footer">
+  <div class="wrap">
+    <div class="foot-mark">
+      <img src="images/logo.jpg" width="430" height="211" alt="" style="width:30px;height:auto;">
+      <span>Iris Doulou Atelier</span>
+    </div>
+    <p class="foot-line">Iris Doulou Atelier · Original paintings by inquiry · <a href="mailto:Doulou.iris@gmail.com">Doulou.iris@gmail.com</a></p>
+    <p class="foot-line copy">&copy; 2026 Iris Doulou Atelier · All works original and one of one</p>
+  </div>
+</footer>
+
+</body>
+</html>
