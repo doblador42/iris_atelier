@@ -72,7 +72,6 @@ button:focus-visible{
                       eyebrows, data lines, captions and footer text
    ========================================================= */
 .skip,
-.brand__name,
 .nav,
 h1,
 .section-head h2,
@@ -82,7 +81,6 @@ h1,
 .enquire h2{
   font-family:var(--sans);
 }
-.brand__sub,
 .hero__kicker,
 .hero__meta,
 .label,
@@ -118,23 +116,15 @@ figcaption,
 }
 .brand{
   display:flex;
-  align-items:baseline;
-  gap:.85rem;
+  align-items:center;
   text-decoration:none;
   color:var(--ink);
 }
-.brand__name{
-  font-weight:700;
-  font-size:1.0625rem;
-  letter-spacing:.01em;
-  white-space:nowrap;
+.brand__logo{
+  height:2.5rem;
+  width:auto;
+  display:block;
 }
-.brand__sub{
-  font-weight:500;
-  font-size:.62rem;
-  letter-spacing:.22em;
-}
-@media (max-width:560px){ .brand__sub{display:none} }
 
 .nav{
   display:flex;
@@ -182,7 +172,6 @@ figcaption,
   .nav a.nav--cta{padding:.5rem .65rem;letter-spacing:.08em}
 }
 @media (max-width:380px){
-  .brand__name{font-size:.9rem}
   .nav{gap:.45rem}
   .nav a{font-size:.55rem;letter-spacing:.03em}
   .nav a.nav--cta{padding:.42rem .55rem}
